@@ -5,7 +5,12 @@ import { wait } from 'src/utils/wait';
 
 @Injectable()
 export class InMemoryUserRepository implements IUserRepository {
-  private users: User[] = [];
+  private users: User[] = [
+    User.create({
+      username: 'guilherme.viale',
+      password: 'senha123',
+    }),
+  ];
 
   async update(user: User): Promise<void> {
     await wait(50);

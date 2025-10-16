@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { nanoid } from 'nanoid';
 import { UserProfile } from './user-profile.entity';
 
@@ -12,12 +12,17 @@ type CreateUser = Omit<RestoreUser, 'id'>;
 
 export class User {
   @IsString()
+  @IsNotEmpty()
   id: string;
 
   @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
   username: string;
 
   @IsString()
+  @IsNotEmpty()
+  @MinLength(6)
   password: string;
 
   profile: UserProfile | null = null;
@@ -32,7 +37,7 @@ export class User {
 
   static create(user: CreateUser) {
     return new User({
-      id: nanoid(),
+      id: nanoid(21),
       username: user.username,
       password: user.password,
     });

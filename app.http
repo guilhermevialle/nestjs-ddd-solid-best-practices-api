@@ -7,27 +7,47 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/user/profile
-Content-Type: application/json/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqaGpzWVUxQ0d6TC01UEdYQWpCMlUiLCJ1c2VybmFtZSI6Imd1aXZpYWxsZSIsImlhdCI6MTc2MDU3NTY4OSwiZXhwIjoxNzYwNTc1ODY5fQ.-MeagmzfvubegQC1ytkW-HEjoh0CjGLhL6fv6d6EKfs
-
-###
-PATCH http://localhost:3000/user/profile
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJYWoxekdpbU5JZ3RGZzg5QlV0ZWwiLCJ1c2VybmFtZSI6Imd1aXZpYWxsZSIsImlhdCI6MTc2MDU3NjczMywiZXhwIjoxNzYwNTc2OTEzfQ.YDMlyA2qPpQ3zhc88YLu-Np-_FqzQzYZTaDQ8OWgMwE
-
-{
-  "displayName": "Guilherme Vialle - Full-stack Developer",
-  "summary": "Ive worked using Node and React for years."
-}
-
-###
 POST http://localhost:3000/auth/authenticate
 Content-Type: application/json
 
 {
   "username": "guivialle",
   "password": "senha123"
+}
+
+###
+GET http://localhost:3000/user/profile
+Content-Type: application/json/
+Authorization: Bearer
+
+###
+PATCH http://localhost:3000/user/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6MXhnLURuUjJVeVRPUVZsRV9zS3MiLCJ1c2VybmFtZSI6Imd1aXZpYWxsZSIsImlhdCI6MTc2MDY0NDYzMywiZXhwIjoxNzYwNjQ0ODEzfQ.IRiBkBAQAWSxcEYFtGRn6L7ZR_rGRuiEEWQwoNCsxrg
+
+{
+  "displayName": "Guilherme Vialle - Full-stack Developer",
+  "summary": "Ive worked using Node and React for years."
+}
+
+
+###
+POST http://localhost:3000/pad/new
+Content-Type: application/json
+
+{
+  "content": "# My README\n\nWelcome to my project!\n\n## Features\n- Fast and reliable\n  - Sub-point\n- Easy to use\n\n**Get Started**\n\n1. Install dependencies\n2. Run `npm start`",
+  "expiresIn": 15000
+}
+
+###
+POST http://localhost:3000/pad/new
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6MXhnLURuUjJVeVRPUVZsRV9zS3MiLCJ1c2VybmFtZSI6Imd1aXZpYWxsZSIsImlhdCI6MTc2MDY0NDYzMywiZXhwIjoxNzYwNjQ0ODEzfQ.IRiBkBAQAWSxcEYFtGRn6L7ZR_rGRuiEEWQwoNCsxrg
+
+{
+  "content": "# My README\n\nWelcome to my project!\n\n## Features\n- Fast and reliable\n  - Sub-point\n- Easy to use\n\n**Get Started**\n\n1. Install dependencies\n2. Run `npm start`",
+  "expiresIn": 15000
 }
 
 

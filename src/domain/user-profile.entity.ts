@@ -33,7 +33,7 @@ export class UserProfile {
 
   static create(props: CreateProps): UserProfile {
     return new UserProfile({
-      id: nanoid(),
+      id: nanoid(21),
       displayName: props.displayName,
       summary: props.summary,
     });

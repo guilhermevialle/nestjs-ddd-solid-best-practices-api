@@ -19,7 +19,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../modules/auth/auth-guard';
+import { JwtAuthGuard } from '../misc/auth-guard';
 
 @Controller('user')
 export class UserController {
@@ -39,7 +39,7 @@ export class UserController {
   @Get('profile')
   @UseGuards(JwtAuthGuard)
   @HttpCode(200)
-  async getProfileData(@Req() req: { user: { id: string } }) {
+  async getProfileData(@Req() req: AuthenticatedRequest) {
     console.log(req.user);
     const id = req.user.id;
     return this.getUserProfileData.execute({ id });
@@ -49,7 +49,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @HttpCode(200)
   async changeProfileData(
-    @Req() req: { user: { id: string } },
+    @Req() req: AuthenticatedRequest,
     @Body() dto: ChangeUserProfileDataDTO,
   ) {
     const id = req.user.id;

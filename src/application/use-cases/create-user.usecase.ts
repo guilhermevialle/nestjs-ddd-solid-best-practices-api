@@ -1,7 +1,9 @@
 import { User } from '@/domain/user.entity';
 import { HashService } from '@/infra/services/hash.service';
 import type { IUserRepository } from '@/interface/repositories/user-repository.interface';
+import { InjectQueue } from '@nestjs/bullmq';
 import { Inject, Injectable } from '@nestjs/common';
+import { Queue } from 'bullmq';
 import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { UserAlreadyExistsError } from '../error/user-already-exists.error';
 
@@ -13,7 +15,7 @@ export class CreateUserDTO {
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
+  @MinLength(6)
   password: string;
 }
 
@@ -33,6 +35,8 @@ export class CreateUser {
     @Inject('IUserRepository')
     private readonly userRepository: IUserRepository,
     private readonly hashService: HashService,
+    @InjectQueue('welcome-email')
+    private readonly welcomeEmailQueue: Queue,
   ) {}
 
   async execute(dto: CreateUserDTO): Promise<User> {
@@ -53,6 +57,11 @@ export class CreateUser {
     });
 
     await this.userRepository.save(user);
+
+    await this.welcomeEmailQueue.add('send-welcome-email', {
+      userId: user.id,
+      username: user.username,
+    });
 
     return user;
   }

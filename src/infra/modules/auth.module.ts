@@ -4,8 +4,8 @@ import { JwtStrategy } from '@/infra/strategies/jwt.strategy';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { SharedModule } from '../shared.module';
-import { UserModule } from '../user.module';
+import { SharedModule } from './shared.module';
+import { UserModule } from './user.module';
 
 @Module({
   imports: [
