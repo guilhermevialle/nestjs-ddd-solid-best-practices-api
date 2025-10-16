@@ -7,10 +7,15 @@ import { UserController } from '../controllers/user.controller';
 import { InMemoryUserRepository } from '../repositories/in-memory/in-memory-user.repository';
 import { MailService } from '../services/mail.service';
 import { WelcomeEmailProcessor } from '../workers/welcome-email.worker';
+import { MailModule } from './mail.module';
 import { SharedModule } from './shared.module';
 
 @Module({
-  imports: [SharedModule, BullModule.registerQueue({ name: 'welcome-email' })],
+  imports: [
+    SharedModule,
+    MailModule,
+    BullModule.registerQueue({ name: 'welcome-email' }),
+  ],
   controllers: [UserController],
   providers: [
     {

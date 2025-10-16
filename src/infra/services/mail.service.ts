@@ -13,15 +13,19 @@ export class MailService {
   constructor(private readonly mailer: MailerService) {}
 
   async send(payload: SendMailPayload) {
-    console.log('[Email] Enviando email...');
+    try {
+      console.log('[Email] Enviando email...');
 
-    await this.mailer.sendMail({
-      from: payload.from,
-      to: payload.to,
-      subject: payload.subject,
-      html: payload.body,
-    });
+      await this.mailer.sendMail({
+        from: payload.from,
+        to: payload.to,
+        subject: payload.subject,
+        html: payload.body,
+      });
 
-    console.log('[Email] Email enviado com sucesso!');
+      console.log('[Email] Email enviado com sucesso!');
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

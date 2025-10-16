@@ -16,7 +16,7 @@ export class WelcomeEmailProcessor extends WorkerHost {
     );
 
     await this.mailService.send({
-      from: '<no-reply>admin@myapp.com',
+      from: 'no-reply@myapp.com',
       to: `user-${userId}@myapp.com`,
       subject: 'Welcome to the platform',
       body: `Hello ${job.data.username}, welcome to the platform`,

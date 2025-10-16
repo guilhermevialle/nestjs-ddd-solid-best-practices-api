@@ -1,8 +1,7 @@
 import { MailerModule } from '@nestjs-modules/mailer';
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MailService } from '../services/mail.service';
 
-@Global()
 @Module({
   imports: [
     MailerModule.forRoot({
@@ -10,8 +9,8 @@ import { MailService } from '../services/mail.service';
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-          user: 'bonnie75@ethereal.email',
-          pass: 's1HaYuA1zP9RXrK3Yn',
+          user: 'patsy.thompson@ethereal.email',
+          pass: 'f7ptTjWv1MPx5HNumJ',
         },
       },
     }),

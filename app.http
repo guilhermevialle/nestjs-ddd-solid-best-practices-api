@@ -2,7 +2,7 @@ POST http://localhost:3000/user/new
 Content-Type: application/json
 
 {
-  "username": "guivialle",
+  "username": "guivialle3",
   "password": "senha123"
 }
 
