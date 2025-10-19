@@ -21,7 +21,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../misc/auth-guard';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(
     private readonly createUser: CreateUser,

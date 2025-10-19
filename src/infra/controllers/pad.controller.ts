@@ -1,12 +1,23 @@
 import {
+  ChangePadContent,
+  ChangePadContentDTO,
+} from '@/application/use-cases/change-pad-content.usecase';
+import {
   CreatePad,
   CreatePadDTO,
 } from '@/application/use-cases/create-pad.usecase';
+import {
+  GetPadData,
+  GetPadDataDTO,
+} from '@/application/use-cases/get-pad-data.usecase';
 import { Pad } from '@/domain/pad.entity';
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
+  Param,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -25,9 +36,56 @@ export class CreatePadResponseDTO {
   }
 }
 
-@Controller('pad')
+export class GetPadDataResponseDTO {
+  static fromEntity(pad: Pad): GetPadDataResponseDTO {
+    return {
+      id: pad.id,
+      content: pad.content,
+      expiresIn: pad.expiresIn,
+      createdAt: pad.createdAt,
+      endAt: pad.endAt,
+    };
+  }
+}
+
+export class ChangePadContentResponseDTO {
+  static fromEntity(pad: Pad): ChangePadContentResponseDTO {
+    return {
+      id: pad.id,
+      content: pad.content,
+      expiresIn: pad.expiresIn,
+      createdAt: pad.createdAt,
+      endAt: pad.endAt,
+    };
+  }
+}
+
+@Controller('pads')
 export class PadController {
-  constructor(private readonly createPad: CreatePad) {}
+  constructor(
+    private readonly createPad: CreatePad,
+    private readonly getPadData: GetPadData,
+    private readonly changePadContent: ChangePadContent,
+  ) {}
+
+  @Patch(':id')
+  @HttpCode(204)
+  async changeContent(
+    @Param('id') id: string,
+    @Body() dto: ChangePadContentDTO,
+  ): Promise<ChangePadContentResponseDTO> {
+    const pad = await this.changePadContent.execute(id, dto);
+
+    return ChangePadContentResponseDTO.fromEntity(pad);
+  }
+
+  @Get(':id')
+  @HttpCode(200)
+  async get(@Param() dto: GetPadDataDTO): Promise<GetPadDataResponseDTO> {
+    const pad = await this.getPadData.execute(dto);
+
+    return GetPadDataResponseDTO.fromEntity(pad);
+  }
 
   @Post('new')
   @HttpCode(201)

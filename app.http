@@ -1,4 +1,7 @@
-POST http://localhost:3000/user/new
+### 🧑‍💻 USERS
+
+# Create a new user
+POST http://localhost:3000/users/new
 Content-Type: application/json
 
 {
@@ -7,6 +10,28 @@ Content-Type: application/json
 }
 
 ###
+
+# Get user profile (requires Bearer token)
+GET http://localhost:3000/users/profile
+Content-Type: application/json
+Authorization: Bearer <TOKEN>
+
+###
+
+# Update user profile
+PATCH http://localhost:3000/users/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6MXhnLURuUjJVeVRPUVZsRV9zS3MiLCJ1c2VybmFtZSI6Imd1aXZpYWxsZSIsImlhdCI6MTc2MDY0NDYzMywiZXhwIjoxNzYwNjQ0ODEzfQ.IRiBkBAQAWSxcEYFtGRn6L7ZR_rGRuiEEWQwoNCsxrg
+
+{
+  "displayName": "Guilherme Vialle - Full-stack Developer",
+  "summary": "I've worked using Node and React for years."
+}
+
+
+### 🔐 AUTHENTICATION
+
+# Authenticate user (login)
 POST http://localhost:3000/auth/authenticate
 Content-Type: application/json
 
@@ -15,24 +40,10 @@ Content-Type: application/json
   "password": "senha123"
 }
 
-###
-GET http://localhost:3000/user/profile
-Content-Type: application/json/
-Authorization: Bearer
+### 📝 PADS
 
-###
-PATCH http://localhost:3000/user/profile
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6MXhnLURuUjJVeVRPUVZsRV9zS3MiLCJ1c2VybmFtZSI6Imd1aXZpYWxsZSIsImlhdCI6MTc2MDY0NDYzMywiZXhwIjoxNzYwNjQ0ODEzfQ.IRiBkBAQAWSxcEYFtGRn6L7ZR_rGRuiEEWQwoNCsxrg
-
-{
-  "displayName": "Guilherme Vialle - Full-stack Developer",
-  "summary": "Ive worked using Node and React for years."
-}
-
-
-###
-POST http://localhost:3000/pad/new
+# Create a new pad (unauthenticated)
+POST http://localhost:3000/pads/new
 Content-Type: application/json
 
 {
@@ -41,7 +52,19 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/pad/new
+
+# Update pad content
+PATCH http://localhost:3000/pads/EmZFbz35kaWk8q51AbrOQ
+Content-Type: application/json
+
+{
+  "content": "fodase"
+}
+
+###
+
+# Create a new pad (authenticated)
+POST http://localhost:3000/pads/new
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6MXhnLURuUjJVeVRPUVZsRV9zS3MiLCJ1c2VybmFtZSI6Imd1aXZpYWxsZSIsImlhdCI6MTc2MDY0NDYzMywiZXhwIjoxNzYwNjQ0ODEzfQ.IRiBkBAQAWSxcEYFtGRn6L7ZR_rGRuiEEWQwoNCsxrg
 
@@ -49,6 +72,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ6MXhnLURuU
   "content": "# My README\n\nWelcome to my project!\n\n## Features\n- Fast and reliable\n  - Sub-point\n- Easy to use\n\n**Get Started**\n\n1. Install dependencies\n2. Run `npm start`",
   "expiresIn": 15000
 }
-
-
-

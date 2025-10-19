@@ -4,13 +4,24 @@ import type { IUserRepository } from '@/interface/repositories/user-repository.i
 import { InjectQueue } from '@nestjs/bullmq';
 import { Inject, Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { IsInt, IsNotEmpty, IsString, MaxLength, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  Min,
+} from 'class-validator';
 import { UserNotFoundError } from '../error/user-not-found.error';
 
 export class CreatePadDTO {
   @IsString()
   @MaxLength(1000)
   content: string;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  isPublic: boolean;
 
   @IsInt()
   @Min(1)
@@ -36,6 +47,7 @@ export class CreatePad {
       pad = Pad.create({
         content: dto.content,
         expiresIn: dto.expiresIn,
+        isPublic: true,
       });
     } else {
       const user = await this.userRepository.findById(userId);
@@ -45,6 +57,7 @@ export class CreatePad {
       pad = Pad.create({
         userId: user.id,
         content: dto.content,
+        isPublic: dto.isPublic,
         expiresIn: dto.expiresIn,
       });
     }

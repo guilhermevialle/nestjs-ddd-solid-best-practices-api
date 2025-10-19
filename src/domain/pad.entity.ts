@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsDate,
   IsInt,
   IsNotEmpty,
@@ -14,6 +15,7 @@ type RestorePadProps = {
   id: string;
   userId?: string;
   content: string;
+  isPublic: boolean;
   expiresIn: number; // milliseconds
   createdAt: Date;
 };
@@ -33,8 +35,12 @@ export class Pad {
   @MaxLength(1000)
   content: string;
 
+  @IsBoolean()
+  @IsNotEmpty()
+  isPublic: boolean;
+
   @IsInt()
-  @Min(1)
+  @Min(1_000)
   @IsNotEmpty()
   expiresIn: number;
 
@@ -46,6 +52,7 @@ export class Pad {
     this.id = props.id;
     this.userId = props.userId;
     this.content = props.content;
+    this.isPublic = props.isPublic;
     this.expiresIn = props.expiresIn;
     this.createdAt = props.createdAt;
   }
@@ -55,13 +62,25 @@ export class Pad {
       id: nanoid(21),
       userId: props.userId,
       content: props.content,
+      isPublic: props.isPublic,
       expiresIn: props.expiresIn,
       createdAt: new Date(),
     });
   }
 
   static from(props: RestorePadProps): Pad {
-    return new Pad(props);
+    return new Pad({
+      id: props.id,
+      userId: props.userId,
+      content: props.content,
+      isPublic: props.isPublic,
+      expiresIn: props.expiresIn,
+      createdAt: props.createdAt,
+    });
+  }
+
+  public changeContent(other: string): void {
+    this.content = other;
   }
 
   get msUntilExpiration() {
@@ -78,6 +97,7 @@ export class Pad {
       id: this.id,
       userId: this.userId,
       content: this.content,
+      isPublic: this.isPublic,
       expiresIn: this.expiresIn,
     };
   }
